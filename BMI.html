@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        input {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>BMI Calculator</h2>
+    <input type="text" id="name" placeholder="Enter your name">
+    <input type="number" id="weight" placeholder="Enter your weight in pounds">
+    <input type="number" id="feet" placeholder="Enter your height (feet)">
+    <input type="number" id="inches" placeholder="Enter additional height (inches)">
+    <button onclick="calculateBMI()">Calculate BMI</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculateBMI() {
+        var name = document.getElementById('name').value;
+        var weight = parseFloat(document.getElementById('weight').value);
+        var feet = parseFloat(document.getElementById('feet').value);
+        var inches = parseFloat(document.getElementById('inches').value);
+
+        if (weight > 0 && feet >= 0 && inches >= 0) {
+            // Convert height to inches
+            var totalHeightInches = (feet * 12) + inches;
+
+            // Calculate BMI
+            var BMI = (weight * 703) / (totalHeightInches * totalHeightInches);
+            var result = document.getElementById('result');
+            result.innerHTML = `Your BMI is: ${BMI.toFixed(2)}<br>`;
+
+            if (BMI < 18.5) {
+                result.innerHTML += `${name}, you are underweight. See your primary care provider or eat more.`;
+            } else if (BMI <= 24.9) {
+                result.innerHTML += `${name}, you are normal weight. Keep it up!`;
+            } else if (BMI < 29.9) {
+                result.innerHTML += `${name}, you are overweight. Exercise more and reduce calorie intake to maintain a normal BMI.`;
+            } else if (BMI < 34.9) {
+                result.innerHTML += `${name}, you are obese. Exercise more, reduce your calorie intake, and meet with your primary care provider.`;
+            } else if (BMI < 39.9) {
+                result.innerHTML += `${name}, you are severely obese. Meet with your primary care provider.`;
+            } else {
+                result.innerHTML += `${name}, you are extremely obese. Meet with your primary care provider.`;
+            }
+        } else {
+            alert("Enter valid inputs.");
+        }
+    }
+</script>
+
+</body>
+</html>
